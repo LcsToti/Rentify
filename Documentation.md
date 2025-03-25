@@ -1,37 +1,35 @@
-# Documentação Rentify
+# Rentify Documentation
 
-O **Rentify** é um sistema de gestão de aluguel que facilita a administração de imóveis para inquilinos, proprietários e imobiliárias. Ele permite gerenciar contratos, pagamentos, manutenção e comunicação de forma eficiente e transparente.
+## Requirements
 
-## Requisitos
+The following tables outline the functional and non-functional requirements detailing the system's scope.
 
-As tabelas que se seguem apresentam os requisitos funcionais e não funcionais que detalham o escopo do sistema.
+### Functional Requirements
 
-### Requisitos Funcionais
+| ID   | Description                                           | Stability | Priority | Status       |
+| ---- | ----------------------------------------------------- | --------- | -------- | ------------ |
+| RF01 | User registration (tenant, owner, real estate agency) | Stable    | High     | Approved     |
+| RF02 | Property registration                                 | Stable    | High     | Approved     |
+| RF03 | Property editing                                      | Stable    | High     | Approved     |
+| RF04 | Property deletion                                     | Stable    | High     | Approved     |
+| RF05 | Negotiation history                                   | Unstable  | Medium   | Under Review |
+| RF06 | Chat between clients and real estate agencies         | Stable    | Medium   | Approved     |
+| RF07 | Ticket request and tracking for support               | Unstable  | Medium   | Approved     |
+| RF08 | Financial reports for both parties                    | Volatile  | Low      | Under Review |
+| RF09 | Automatic notifications and reminders                 | Unstable  | Medium   | Draft        |
 
-| ID   | Descrição                                                   | Estabilidade | Prioridade | Status     |
-| ---- | ----------------------------------------------------------- | ------------ | ---------- | ---------- |
-| RF01 | Cadastro de usuários (inquilino, proprietário, imobiliária) | Estável      | Alta       | Aprovado   |
-| RF02 | Cadastro de imóveis                                         | Estável      | Alta       | Aprovado   |
-| RF03 | Edição de imóveis                                           | Estável      | Alta       | Aprovado   |
-| RF04 | Exclusão de imóveis                                         | Estável      | Alta       | Aprovado   |
-| RF05 | Histórico de negociações                                    | Instável     | Média      | Em Análise |
-| RF06 | Chat entre clientes e imobiliárias                          | Estável      | Média      | Aprovado   |
-| RF07 | Solicitação e acompanhamento de tickets de atendimento      | Instável     | Média      | Aprovado   |
-| RF08 | Relatórios Financeiros para ambas às partes                 | Volátil      | Baixa      | Em Análise |
-| RF09 | Notificações e lembretes automáticos                        | Instável     | Média      | Rascunho   |
+### Non-Functional Requirements
 
----
+| ID    | Description                                                                                                      |
+| ----- | ---------------------------------------------------------------------------------------------------------------- |
+| RNF01 | Support multiple simultaneous users without performance degradation, up to 100 concurrent users                  |
+| RNF02 | Response time for critical actions (login, registration) must be under 2 seconds                                 |
+| RNF03 | User passwords must be securely stored using Hash with BCrypt                                                    |
+| RNF04 | Implement role-based access control (RBAC) for User, Owner, Real Estate Agency                                   |
+| RNF05 | The interface must be responsive across different devices                                                        |
+| RNF06 | Reliable uptime of 99%                                                                                           |
+| RNF07 | The architecture should allow easy addition of new features following best practices, being modular and scalable |
 
-### Requisitos Não Funcionais
+_\*Values are approximate and may be adjusted as needed._
 
-| ID    | Descrição                                                                                                           |
-| ----- | ------------------------------------------------------------------------------------------------------------------- |
-| RNF01 | Suportar múltiplos usuários simultâneos sem redução de performance, com até 100 usuários simultâneos                |
-| RNF02 | Tempo de resposta para ações críticas (login, cadastro) deve ser menor que 2 segundos                               |
-| RNF03 | Senhas dos usuários devem ser armazenadas de forma segura através do Hash com BCrypt                                |
-| RNF04 | Implementar controle de acesso baseado em papéis (RBAC) para Usuário, Proprietário, Imobiliária                     |
-| RNF05 | Interface deve ser responsiva para diferentes dispositivos.                                                         |
-| RNF06 | Tempo de uptime confiável de 99%.                                                                                   |
-| RNF07 | A arquitetura deve permitir fácil adição de novas funcionalidades seguindo boas práticas, sendo modular e escalável |
-
-_\*Os valores são aproximados e podem ser ajustados conforme necessário._
+## Tech Stack
