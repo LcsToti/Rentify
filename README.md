@@ -1,2 +1,3 @@
 # Rentify
-RentHub é um sistema completo para gestão de aluguel, conectando inquilinos, proprietários e imobiliárias em um só lugar. A plataforma facilita a administração de contratos, pagamentos, manutenções e comunicação entre as partes, garantindo transparência, agilidade e segurança em todo o processo de locação.
+
+**Rentify** is a rental management system that streamlines the management of properties for tenants, owners, and real estate agencies. It allows efficient and transparent management of contracts, payments, maintenance, and communication.
