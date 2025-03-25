@@ -33,3 +33,24 @@ The following tables outline the functional and non-functional requirements deta
 _\*Values are approximate and may be adjusted as needed._
 
 ## Tech Stack
+
+The following technologies will be used in the Rentify system:
+
+### Backend
+
+- **ASP.NET Core**: Used for building the API, providing a robust and scalable architecture.
+- **Entity Framework Core**: Object-Relational Mapper (ORM) for interacting with the MySQL database.
+- **JWT / OAuth2**: Authentication and authorization mechanisms for secure user access.
+
+### Frontend
+
+- **Vue.js**: A progressive JavaScript framework for building user interfaces.
+- **Nuxt.js**: A framework based on Vue.js that provides server-side rendering (SSR), static site generation (SSG), and a file-based routing system for better productivity and SEO.
+
+### Database
+
+- **MySQL**: A relational database for storing and managing property and user data.
+
+### Version Control
+
+- **Git**: Version control system to track changes and collaborate efficiently.
