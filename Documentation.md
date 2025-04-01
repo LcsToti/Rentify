@@ -1,56 +1,56 @@
 # Rentify Documentation
 
-## Requirements
+## Requisitos
 
-The following tables outline the functional and non-functional requirements detailing the system's scope.
+As tabelas a seguir detalham os requisitos funcionais e não funcionais do sistema.
 
-### Functional Requirements
+# **Requisitos Funcionais (v1.0)**
 
-| ID   | Description                                           | Stability | Priority | Status       |
-| ---- | ----------------------------------------------------- | --------- | -------- | ------------ |
-| RF01 | User registration (tenant, owner, real estate agency) | Stable    | High     | Approved     |
-| RF02 | Property registration                                 | Stable    | High     | Approved     |
-| RF03 | Property editing                                      | Stable    | High     | Approved     |
-| RF04 | Property deletion                                     | Stable    | High     | Approved     |
-| RF05 | Negotiation history                                   | Unstable  | Medium   | Under Review |
-| RF06 | Chat between clients and real estate agencies         | Stable    | Medium   | Approved     |
-| RF07 | Ticket request and tracking for support               | Unstable  | Medium   | Approved     |
-| RF08 | Financial reports for both parties                    | Volatile  | Low      | Under Review |
-| RF09 | Automatic notifications and reminders                 | Unstable  | Medium   | Draft        |
+| **ID** | **Descrição**                                             | **Estabilidade** | **Prioridade** | **Status** |
+| ------ | --------------------------------------------------------- | ---------------- | -------------- | ---------- |
+| RF01   | Cadastro e Login de imobiliárias                          | Estável          | Alta           | Aprovado   |
+| RF02   | Inclusão de processos de aluguel                          | Estável          | Alta           | Aprovado   |
+| RF03   | Inclusão de eventos para os processos de aluguel          | Estável          | Alta           | Aprovado   |
+| RF04   | Edição de eventos para os processos de aluguel            | Estável          | Alta           | Aprovado   |
+| RF05   | Remoção de eventos para os processos de aluguel           | Estável          | Alta           | Aprovado   |
+| RF06   | Exibição de histórico de eventos dos processos de aluguel | Estável          | Alta           | Aprovado   |
+| RF07   | Lembretes Automáticos                                     | Estável          | Média          | Aprovado   |
+| RF08   | Protocolos de Problemas (Tickets) com Status              | Estável          | Alta           | Aprovado   |
+| RF09   | Retorno sobre o status financeiro                         | Estável          | Média          | Aprovado   |
 
-### Non-Functional Requirements
+### **Requisitos Não Funcionais (v1.0)**
 
-| ID    | Description                                                                                                      |
-| ----- | ---------------------------------------------------------------------------------------------------------------- |
-| RNF01 | Support multiple simultaneous users without performance degradation, up to 100 concurrent users                  |
-| RNF02 | Response time for critical actions (login, registration) must be under 2 seconds                                 |
-| RNF03 | User passwords must be securely stored using Hash with BCrypt                                                    |
-| RNF04 | Implement role-based access control (RBAC) for User, Owner, Real Estate Agency                                   |
-| RNF05 | The interface must be responsive across different devices                                                        |
-| RNF06 | Reliable uptime of 99%                                                                                           |
-| RNF07 | The architecture should allow easy addition of new features following best practices, being modular and scalable |
+| ID    | Descrição                                                                                                           |
+| ----- | ------------------------------------------------------------------------------------------------------------------- |
+| RNF01 | Suportar múltiplos usuários simultâneos sem degradação de desempenho, até 100 usuários concorrentes                 |
+| RNF02 | O tempo de resposta para ações críticas (login, cadastro) deve ser inferior a 2 segundos                            |
+| RNF03 | As senhas dos usuários devem ser armazenadas com segurança usando **Hash com BCrypt**                               |
+| RNF04 | Implementar **controle de acesso baseado em funções (RBAC)** para administração de imobiliárias                     |
+| RNF05 | A interface deve ser responsiva para diferentes dispositivos                                                        |
+| RNF06 | Garantir um tempo de atividade confiável de **99%**                                                                 |
+| RNF07 | A arquitetura deve permitir fácil adição de novas funcionalidades seguindo boas práticas, sendo modular e escalável |
 
-_\*Values are approximate and may be adjusted as needed._
+_\*Os valores são aproximados e podem ser ajustados conforme necessário._
 
-## Tech Stack
+## **Stack**
 
-The following technologies will be used in the Rentify system:
+As seguintes tecnologias serão utilizadas no sistema Rentify:
 
-### Backend
+### **Backend**
 
-- **ASP.NET Core**: Used for building the API, providing a robust and scalable architecture.
-- **Entity Framework Core**: Object-Relational Mapper (ORM) for interacting with the MySQL database.
-- **JWT / OAuth2**: Authentication and authorization mechanisms for secure user access.
+- **ASP.NET Web API**: Para construir a API, oferecendo uma arquitetura robusta e escalável.
+- **Entity Framework Core**: ORM para interação com o banco de dados MySQL.
+- **JWT / OAuth2**: Mecanismos de autenticação e autorização para acesso seguro dos usuários.
 
-### Frontend
+### **Frontend**
 
-- **Vue.js**: A progressive JavaScript framework for building user interfaces.
-- **Nuxt.js**: A framework based on Vue.js that provides server-side rendering (SSR), static site generation (SSG), and a file-based routing system for better productivity and SEO.
+- **React.js**: Biblioteca principal para a interface do usuário.
+- **Next.js**: Framework para melhorar SEO, SSR e facilitar a estruturação do projeto.
 
-### Database
+### **Banco de Dados**
 
-- **MySQL**: A relational database for storing and managing property and user data.
+- **MySQL**: Banco de dados relacional para armazenar e gerenciar informações de contratos e histórico.
 
-### Version Control
+### **Controle de Versão**
 
-- **Git**: Version control system to track changes and collaborate efficiently.
+- **Git**: Sistema de controle de versão para rastrear mudanças e facilitar a colaboração.
