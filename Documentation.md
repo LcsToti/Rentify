@@ -4,7 +4,7 @@
 
 As tabelas a seguir detalham os requisitos funcionais e não funcionais do sistema.
 
-# **Requisitos Funcionais (v1.0)**
+### **Requisitos Funcionais (v1.0)**
 
 | **ID** | **Descrição**                                             | **Estabilidade** | **Prioridade** | **Status** |
 | ------ | --------------------------------------------------------- | ---------------- | -------------- | ---------- |
