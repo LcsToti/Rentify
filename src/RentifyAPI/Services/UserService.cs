@@ -13,12 +13,7 @@ namespace RentifyAPI.Services
         {
             _context = context;
         }
-        public async Task<GetUserDTO?> GetUserAsync(int id)
-        {
-            var user = await _context.Users.FindAsync(id);
-            return user != null ? UserMapper.ToDTO(user) : null;
-        }
-
+        
         public async Task<List<GetUserDTO>> GetUsersAsync()
         {
             var users = await _context.Users
@@ -26,6 +21,13 @@ namespace RentifyAPI.Services
                 .ToListAsync();
             return users;
         }
+        
+        public async Task<GetUserDTO?> GetUserAsync(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            return user != null ? UserMapper.ToDTO(user) : null;
+        }
+
 
         public async Task<GetUserDTO> CreateUserAsync(RegisterUserDTO dto)
         {

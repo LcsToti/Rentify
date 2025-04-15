@@ -11,15 +11,10 @@ namespace RentifyAPI.Controllers
         private readonly IUserService _userService = userService;
 
         [ProducesResponseType(typeof(GetUserDTO), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
             var users = await _userService.GetUsersAsync();
-            if (users is null)
-            {
-                return NotFound("Usuário não encontrado");
-            }
             return Ok(users);
         }
 
