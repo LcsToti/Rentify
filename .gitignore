@@ -41,3 +41,4 @@ tools/
 **/appsettings.Development.json
 **/appsettings.Staging.json
 **/appsettings.Production.json
+/src/RentifyAPI/Configuration.cs
