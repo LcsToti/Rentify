@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RentifyAPI.Dtos.User;
+namespace RentifyAPI.Dtos.UserDtos;
 
 public class RegisterUserDto
 {

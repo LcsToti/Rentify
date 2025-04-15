@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-
 namespace RentifyAPI.Models;
 
 public class RentifyContext : DbContext
@@ -12,3 +11,4 @@ public class RentifyContext : DbContext
 
     public DbSet<User> Users { get; set; }
 }
+

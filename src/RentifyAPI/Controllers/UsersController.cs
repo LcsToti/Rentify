@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RentifyAPI.Dtos.User;
-using RentifyAPI.Services;
+using RentifyAPI.Dtos.UserDtos;
+using RentifyAPI.Services.UserServices;
 
 namespace RentifyAPI.Controllers
 {
@@ -29,32 +29,6 @@ namespace RentifyAPI.Controllers
                 return NotFound("Usuário não encontrado");
             }
             return Ok(user);
-        }
-
-        [ProducesResponseType(typeof(GetUserDto), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] RegisterUserDto dto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return ValidationProblem();
-            }
-
-            try
-            {
-                var userDTO = await _userService.CreateUserAsync(dto);
-                return CreatedAtAction(nameof(GetUser), new { id = userDTO.Id }, userDTO);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception) // TODO: Trocar pra uma Catch que faz sentido depois...
-            {
-                return StatusCode(500, "Erro interno no servidor.");
-            }
         }
     }
 }

@@ -1,15 +1,22 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using RentifyAPI.Models;
-using RentifyAPI.Services;
-using System.Reflection;
+using RentifyAPI.Services.Auth;
+using RentifyAPI.Services.UserServices;
+using System.Text;
+using RentifyAPI;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddTransient<TokenService>();
+
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddDbContext<RentifyContext>(options =>
     options.UseMySql(
@@ -29,6 +36,24 @@ builder.Services.AddCors(options =>
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "RentifyAPI", Version = "v1" });
+});
+
+var key = Encoding.ASCII.GetBytes(Configuration.PrivateKey);
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.RequireHttpsMetadata = false;
+    x.SaveToken = true;
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false,
+    };
 });
 
 var app = builder.Build();
@@ -57,8 +82,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 // 5. Autenticação/autorização (se aplicável)
-// app.UseAuthentication();
-// app.UseAuthorization();
+app.UseAuthentication();
+app.UseAuthorization();
 
 
 // 6. Mapeamento de endpoints (controllers, minimal APIs, etc.)

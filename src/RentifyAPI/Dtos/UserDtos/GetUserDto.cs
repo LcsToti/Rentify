@@ -1,4 +1,4 @@
-﻿namespace RentifyAPI.Dtos.User;
+﻿namespace RentifyAPI.Dtos.UserDtos;
 
 public class GetUserDto
 {

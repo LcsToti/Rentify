@@ -1,17 +1,16 @@
-﻿using RentifyAPI.DTOs.User;
+﻿using RentifyAPI.Dtos.UserDtos;
 using RentifyAPI.Models;
 
-namespace RentifyAPI.Utils.Mappers
+namespace RentifyAPI.Utils.Mappers;
+
+public class UserMapper
 {
-    public class UserMapper
+    public static GetUserDto ToDTO(User user)
     {
-        public static GetUserDTO ToDTO(User user)
+        return new GetUserDto
         {
-            return new GetUserDTO
-            {
-                Id = user.Id,
-                Name = user.Name,
-            };
-        }
-    } 
-}
+            Id = user.Id,
+            Name = user.Name,
+        };
+    }
+} 
