@@ -1,5 +1,5 @@
 ﻿using RentifyAPI.Models;
-using RentifyAPI.DTOs.User;
+using RentifyAPI.Dtos.User;
 using RentifyAPI.Utils.Mappers;
 using RentifyAPI.Utils.Security;
 using Microsoft.EntityFrameworkCore;
@@ -14,22 +14,22 @@ namespace RentifyAPI.Services
             _context = context;
         }
         
-        public async Task<List<GetUserDTO>> GetUsersAsync()
+        public async Task<List<GetUserDto>> GetUsersAsync()
         {
             var users = await _context.Users
-                .Select(u => new GetUserDTO { Id = u.Id, Name = u.Name })
+                .Select(u => new GetUserDto { Id = u.Id, Name = u.Name })
                 .ToListAsync();
             return users;
         }
         
-        public async Task<GetUserDTO?> GetUserAsync(int id)
+        public async Task<GetUserDto?> GetUserAsync(int id)
         {
             var user = await _context.Users.FindAsync(id);
             return user != null ? UserMapper.ToDTO(user) : null;
         }
 
 
-        public async Task<GetUserDTO> CreateUserAsync(RegisterUserDTO dto)
+        public async Task<GetUserDto> CreateUserAsync(RegisterUserDto dto)
         {
             if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
             {
@@ -46,7 +46,7 @@ namespace RentifyAPI.Services
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return new GetUserDTO
+            return new GetUserDto
             {
                 Id = user.Id,
                 Name = user.Name,

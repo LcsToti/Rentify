@@ -2,7 +2,7 @@
 
 namespace RentifyAPI.Dtos.User;
 
-public class RegisterUserDTOs
+public class RegisterUserDto
 {
     [Required(ErrorMessage = "Nome é obrigatório")]
     [MinLength(5, ErrorMessage = "Nome deve ter pelo menos 5 dígitos")]

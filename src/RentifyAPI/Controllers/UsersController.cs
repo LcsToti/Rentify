@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RentifyAPI.DTOs.User;
+using RentifyAPI.Dtos.User;
 using RentifyAPI.Services;
 
 namespace RentifyAPI.Controllers
@@ -10,7 +10,7 @@ namespace RentifyAPI.Controllers
     {
         private readonly IUserService _userService = userService;
 
-        [ProducesResponseType(typeof(GetUserDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GetUserDto), StatusCodes.Status200OK)]
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
@@ -18,7 +18,7 @@ namespace RentifyAPI.Controllers
             return Ok(users);
         }
 
-        [ProducesResponseType(typeof(GetUserDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GetUserDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(int id)
@@ -31,11 +31,11 @@ namespace RentifyAPI.Controllers
             return Ok(user);
         }
 
-        [ProducesResponseType(typeof(GetUserDTO), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(GetUserDto), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] RegisterUserDTO dto)
+        public async Task<IActionResult> CreateUser([FromBody] RegisterUserDto dto)
         {
             if (!ModelState.IsValid)
             {
