@@ -1,0 +1,43 @@
+﻿
+**/bin/
+**/obj/
+
+.idea/
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+*.dll
+*.exe
+*.app
+*.cache
+*.pdb
+*.mdb
+*.nupkg
+*.msi
+
+*.db
+*.bak
+*.log
+
+TestResults/
+*.coverage
+*.coveragexml
+
+# Ferramentas do .NET
+.dotnet/
+tools/
+
+# Arquivos de publicação
+**/publish/
+
+######################
+# App Configuration  #
+######################
+# Ignora apenas configurações de ambiente (não o arquivo base)
+**/appsettings.Development.json
+**/appsettings.Staging.json
+**/appsettings.Production.json
