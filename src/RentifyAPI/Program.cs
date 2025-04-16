@@ -1,10 +1,7 @@
-using System.Text;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-
 using RentifyAPI;
 using RentifyAPI.Models;
 using RentifyAPI.Repositories;
@@ -12,6 +9,8 @@ using RentifyAPI.Services.Auth;
 using RentifyAPI.Services.Password;
 using RentifyAPI.Services.Token;
 using RentifyAPI.Services.UserServices;
+using System.Security.Claims;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +26,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddDbContext<RentifyContext>(options =>
     options.UseMySql(
-        builder.Configuration.GetConnectionString("HabitumContext"),
+        builder.Configuration.GetConnectionString("Rentify"),
         new MySqlServerVersion(new Version(8, 0, 41))
     )
 );

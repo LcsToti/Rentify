@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RentifyAPI.Dtos;
 using RentifyAPI.Dtos.Auth;
 using RentifyAPI.Services.Auth;
 
