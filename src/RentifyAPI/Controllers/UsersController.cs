@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RentifyAPI.Dtos.UserDtos;
+using RentifyAPI.Dtos.ResponseDtos;
 using RentifyAPI.Services.UserServices;
 
 namespace RentifyAPI.Controllers;
@@ -11,37 +11,30 @@ public class UsersController(IUserService userService) : ControllerBase
 {
     private readonly IUserService _userService = userService;
 
-    // [ProducesResponseType(typeof(List<GetUserDto>), StatusCodes.Status200OK)]
-    // [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(UserListResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
     [HttpGet]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> GetUsers()
+    public async Task<IActionResult> Users()
     {
         var response = await _userService.GetUsersAsync();
         return Ok(response);
     }
 
-    [ProducesResponseType(typeof(GetUserDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(SingleUserResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(typeof(Response), StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(typeof(SingleUserResponse), StatusCodes.Status404NotFound)]
     [HttpGet("{id}")]
-    [Authorize]
-    public async Task<IActionResult> GetUser(int id)
-    {
-        var user = await _userService.GetUserAsync(id);
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> UserById(int id)
+    { 
+        var response = await _userService.GetUserAsync(id);
 
-        if (user is null)
+        if (!response.Success)
         {
-            return NotFound("Usuário não encontrado");
+            return NotFound(response);
         }
-
-
-        if (User.Identity.Name != user.Email && !User.IsInRole("Admin"))
-        {
-            return Forbid("Você não possui permissões para acessar este recurso.");
-        }
-
-        return Ok(user);
+        return Ok(response);
     }
 }

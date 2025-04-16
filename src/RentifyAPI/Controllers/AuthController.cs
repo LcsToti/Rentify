@@ -11,9 +11,9 @@ public class AuthController(IAuthService authService) : ControllerBase
 {
     private readonly IAuthService _authService = authService;
 
-    [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(AuthResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(Response), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(AuthResponse), StatusCodes.Status401Unauthorized)]
     [Route("Login")]
     [HttpPost]
     public async Task<IActionResult> Login([FromBody] LoginDto dto)
@@ -40,9 +40,9 @@ public class AuthController(IAuthService authService) : ControllerBase
         return Ok(response);
     }
 
-    [ProducesResponseType(typeof(Response), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(AuthResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(Response), StatusCodes.Status409Conflict)]
+    [ProducesResponseType(typeof(AuthResponse), StatusCodes.Status409Conflict)]
     [Route("Register")]
     [HttpPost]
     public async Task<IActionResult> Register([FromBody] RegisterDto dto)

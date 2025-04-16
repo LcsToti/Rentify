@@ -6,20 +6,20 @@ using RentifyAPI.Services.Token;
 
 namespace RentifyAPI.Services.Auth;
 
-public class AuthService(UserRepository userRepository, IPasswordService passwordService, ITokenService tokenService) : IAuthService
+public class AuthService(IUserRepository userRepository, IPasswordService passwordService, ITokenService tokenService) : IAuthService
 {
-    private readonly UserRepository _userRepository = userRepository;
+    private readonly IUserRepository _userRepository = userRepository;
     private readonly IPasswordService _passwordService = passwordService;
     private readonly ITokenService _tokenService = tokenService;
 
     public async Task<AuthResponse> LoginAsync(LoginDto loginDto)
     {
-        if (!await _userRepository.EmailExists(loginDto.Email))
+        if (!await _userRepository.EmailExistsAsync(loginDto.Email))
         {
             return new AuthResponse { Success = false, FailureType = AuthFailureType.InvalidEmail, ErrorMessage = "Email não cadastrado." };
         }
 
-        var user = await _userRepository.GetByEmail(loginDto.Email);
+        var user = await _userRepository.GetByEmailAsync(loginDto.Email);
 
         if (!_passwordService.Verify(loginDto.Password, user.PasswordHash))
         {
@@ -31,7 +31,7 @@ public class AuthService(UserRepository userRepository, IPasswordService passwor
 
     public async Task<AuthResponse> RegisterAsync(RegisterDto dto)
     {
-        if (await _userRepository.EmailExists(dto.Email))
+        if (await _userRepository.EmailExistsAsync(dto.Email))
         {
             return new AuthResponse { Success = false, FailureType = AuthFailureType.EmailAlreadyExists, ErrorMessage = "Email já cadastrado." };
         }
@@ -44,7 +44,7 @@ public class AuthService(UserRepository userRepository, IPasswordService passwor
         };
        
 
-        await _userRepository.Add(user);
+        await _userRepository.AddAsync(user);
 
         return new AuthResponse { Success = true, Token = _tokenService.Generate(user) };
     }

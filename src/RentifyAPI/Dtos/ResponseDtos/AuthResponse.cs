@@ -1,5 +1,4 @@
 ﻿using RentifyAPI.Dtos.ResponseDtos;
-using RentifyAPI.Dtos.UserDtos;
 using RentifyAPI.Dtos;
 
 namespace RentifyAPI.Dtos.ResponseDtos

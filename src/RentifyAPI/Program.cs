@@ -1,24 +1,29 @@
 using System.Text;
-using RentifyAPI;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
-using RentifyAPI.Models;
-using RentifyAPI.Services.Auth;
-using RentifyAPI.Services.UserServices;
-using RentifyAPI.Services.Token;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+
+using RentifyAPI;
+using RentifyAPI.Models;
+using RentifyAPI.Repositories;
+using RentifyAPI.Services.Auth;
+using RentifyAPI.Services.Password;
+using RentifyAPI.Services.Token;
+using RentifyAPI.Services.UserServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddTransient<TokenService>();
 
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPasswordService, PasswordService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddDbContext<RentifyContext>(options =>
     options.UseMySql(

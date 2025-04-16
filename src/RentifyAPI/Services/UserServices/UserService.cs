@@ -1,33 +1,44 @@
-﻿using RentifyAPI.Models;
-using RentifyAPI.Dtos.UserDtos;
-using Microsoft.EntityFrameworkCore;
-using RentifyAPI.Utils;
+﻿using RentifyAPI.Dtos.ResponseDtos;
+using RentifyAPI.Repositories;
 
 namespace RentifyAPI.Services.UserServices;
 
-public class UserService : IUserService
+public class UserService(IUserRepository userRepository) : IUserService
 {
-    private readonly RentifyContext _context;
-    public UserService(RentifyContext context)
+    private readonly IUserRepository _userRepository = userRepository;
+
+    public async Task<UserListResponse> GetUsersAsync()
     {
-        _context = context;
+        var users = await _userRepository.GetAllUsersAsync();
+        var userDtos = users.Select(u => new UserDTO(u)).ToList();
+
+        return new UserListResponse 
+        { 
+            Success = true, 
+            Users = userDtos 
+        };
     }
     
-    public async Task<List<GetUserDto>> GetUsersAsync()
+    public async Task<SingleUserResponse> GetUserAsync(int id)
     {
-        var users = await _context.Users
-            .Select(u => new GetUserDto { Id = u.Id, Name = u.Name, Email = u.Email })
-            .ToListAsync();
-        return users;
-    }
-    
-    public async Task<GetUserDto?> GetUserAsync(int id)
-    {
-        var user = await _context.Users.FindAsync(id);
+        var user = await _userRepository.FindByIdAsync(id);
+
         if (user == null)
         {
-            throw new DirectoryNotFoundException("Usuário não encontrado");
+            return new SingleUserResponse
+            {
+                Success = false,
+                ErrorMessage = "Usuário não encontrado"
+            };
         }
-        return UserMapper.ToDTO(user);
+
+        var userDto = new UserDTO(user);
+
+        return new SingleUserResponse
+        {
+            Success = true,
+            User = userDto
+        };
+
     }
 }
