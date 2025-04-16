@@ -1,5 +1,4 @@
-﻿using RentifyAPI.Dtos;
-using RentifyAPI.Dtos.Auth;
+﻿using RentifyAPI.Dtos.Auth;
 using RentifyAPI.Models;
 using RentifyAPI.Repositories;
 using RentifyAPI.Services.Password;
@@ -13,28 +12,28 @@ public class AuthService(UserRepository userRepository, IPasswordService passwor
     private readonly IPasswordService _passwordService = passwordService;
     private readonly ITokenService _tokenService = tokenService;
 
-    public async Task<Response> LoginAsync(LoginDto loginDto)
+    public async Task<AuthResponse> LoginAsync(LoginDto loginDto)
     {
         if (!await _userRepository.EmailExists(loginDto.Email))
         {
-            return new Response { Success = false, FailureType = AuthFailureType.InvalidEmail, ErrorMessage = "Email não cadastrado." };
+            return new AuthResponse { Success = false, FailureType = AuthFailureType.InvalidEmail, ErrorMessage = "Email não cadastrado." };
         }
 
         var user = await _userRepository.GetByEmail(loginDto.Email);
 
         if (!_passwordService.Verify(loginDto.Password, user.PasswordHash))
         {
-            return new Response { Success = false, FailureType = AuthFailureType.InvalidPassword, ErrorMessage = "Senha incorreta." };
+            return new AuthResponse { Success = false, FailureType = AuthFailureType.InvalidPassword, ErrorMessage = "Senha incorreta." };
         }
 
-        return new Response { Success = true, Token = _tokenService.Generate(user) };
+        return new AuthResponse { Success = true, Token = _tokenService.Generate(user) };
     }
 
-    public async Task<Response> RegisterAsync(RegisterDto dto)
+    public async Task<AuthResponse> RegisterAsync(RegisterDto dto)
     {
         if (await _userRepository.EmailExists(dto.Email))
         {
-            return new Response { Success = false, FailureType = AuthFailureType.EmailAlreadyExists, ErrorMessage = "Email já cadastrado." };
+            return new AuthResponse { Success = false, FailureType = AuthFailureType.EmailAlreadyExists, ErrorMessage = "Email já cadastrado." };
         }
 
         var user = new User
@@ -47,6 +46,6 @@ public class AuthService(UserRepository userRepository, IPasswordService passwor
 
         await _userRepository.Add(user);
 
-        return new Response { Success = true, Token = _tokenService.Generate(user) };
+        return new AuthResponse { Success = true, Token = _tokenService.Generate(user) };
     }
 }
