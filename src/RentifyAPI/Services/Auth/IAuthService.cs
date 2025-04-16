@@ -1,10 +1,11 @@
-﻿using RentifyAPI.Dtos.Auth;
+﻿using RentifyAPI.Dtos;
+using RentifyAPI.Dtos.Auth;
 
 namespace RentifyAPI.Services.Auth;
 
 public interface IAuthService 
 {
-    Task<AuthResponse> LoginAsync(LoginDto loginDto);
-    Task<AuthResponse> RegisterAsync(RegisterDto registerDto);
+    Task<Response> LoginAsync(LoginDto loginDto);
+    Task<Response> RegisterAsync(RegisterDto registerDto);
 }
 

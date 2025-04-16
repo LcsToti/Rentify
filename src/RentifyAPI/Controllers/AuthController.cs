@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RentifyAPI.Dtos;
 using RentifyAPI.Dtos.Auth;
 using RentifyAPI.Services.Auth;
 
@@ -10,9 +11,9 @@ public class AuthController(IAuthService authService) : ControllerBase
 {
     private readonly IAuthService _authService = authService;
 
-    [ProducesResponseType(typeof(AuthResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(AuthResponse), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(Response), StatusCodes.Status401Unauthorized)]
     [Route("Login")]
     [HttpPost]
     public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
@@ -39,7 +40,7 @@ public class AuthController(IAuthService authService) : ControllerBase
         return Ok(response.Token);
     }
 
-    [ProducesResponseType(typeof(AuthResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(Response), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status409Conflict)]
     [Route("Register")]
