@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RentifyAPI.Services.Auth
 {
-    public class TokenService
+    public class TokenService : ITokenService
     {
         public string Generate(User user)
         {
