@@ -1,5 +1,5 @@
-﻿namespace RentifyAPI.Dtos.Auth;
-public class AuthResponse
+﻿namespace RentifyAPI.Dtos;
+public class Response
 {
     public bool Success { get; set; }
     public string? Token { get; set; }
