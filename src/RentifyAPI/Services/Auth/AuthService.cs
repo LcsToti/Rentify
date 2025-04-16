@@ -1,21 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RentifyAPI.Dtos.Auth;
 using RentifyAPI.Models;
+using RentifyAPI.Repositories;
 
 namespace RentifyAPI.Services.Auth;
 
 public class AuthService : IAuthService
 {
-    private readonly RentifyContext _context;
-    // private readonly RentifyContext _tokenService;
-    public AuthService(RentifyContext context)
+    private readonly UserRepository _userRepository;
+    public AuthService(UserRepository userRepository)
     {
-        _context = context;
+        _userRepository = userRepository;
     }
 
     public async Task<AuthResponse> LoginAsync(LoginDto loginDto)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == loginDto.Email);
+        var user = await _userRepository.GetByEmail(loginDto.Email);
         if (user == null)
         {
             return new AuthResponse { Success = false, FailureType = AuthFailureType.InvalidEmail, ErrorMessage = "Email não cadastrado." };
@@ -31,7 +31,7 @@ public class AuthService : IAuthService
 
     public async Task<AuthResponse> RegisterAsync(RegisterDto dto)
     {
-        if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
+        if (await _userRepository.EmailExists(dto.Email))
         {
             return new AuthResponse { Success = false, FailureType = AuthFailureType.EmailAlreadyExists, ErrorMessage = "Email já cadastrado." };
         }
@@ -43,8 +43,7 @@ public class AuthService : IAuthService
             PasswordHash = PasswordService.Hash(dto.Password),
         };
 
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync();
+        await _userRepository.Add(user);
 
         return new AuthResponse { Success = true, Token = new TokenService().Generate(user) };
     }
