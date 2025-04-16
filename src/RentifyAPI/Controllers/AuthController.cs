@@ -16,53 +16,53 @@ public class AuthController(IAuthService authService) : ControllerBase
     [ProducesResponseType(typeof(Response), StatusCodes.Status401Unauthorized)]
     [Route("Login")]
     [HttpPost]
-    public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+    public async Task<IActionResult> Login([FromBody] LoginDto dto)
     {
         if (!ModelState.IsValid)
         {
             return ValidationProblem();
         }
 
-        var response = await _authService.LoginAsync(loginDto);
+        var response = await _authService.LoginAsync(dto);
 
         if(!response.Success)
         {
             if (response.FailureType == AuthFailureType.InvalidEmail)
             {
-                return Unauthorized(response.ErrorMessage);
+                return Unauthorized(response);
             }
             if (response.FailureType == AuthFailureType.InvalidPassword)
             {
-                return Unauthorized(response.ErrorMessage);
+                return Unauthorized(response);
             }
-            return StatusCode(500, "Erro inesperado.");
+            return BadRequest("Ops! Erro inesperado no servidor.");
         }
-        return Ok(response.Token);
+        return Ok(response);
     }
 
     [ProducesResponseType(typeof(Response), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status409Conflict)]
+    [ProducesResponseType(typeof(Response), StatusCodes.Status409Conflict)]
     [Route("Register")]
     [HttpPost]
-    public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
+    public async Task<IActionResult> Register([FromBody] RegisterDto dto)
     {
         if (!ModelState.IsValid)
         {
             return ValidationProblem();
         }
 
-        var response = await _authService.RegisterAsync(registerDto);
+        var response = await _authService.RegisterAsync(dto);
 
         if (!response.Success)
         {
             if (response.FailureType == AuthFailureType.EmailAlreadyExists)
             {
-                return Conflict(response.ErrorMessage);
+                return Conflict(response);
             }
             return StatusCode(500, "Erro inesperado.");
         }
 
-        return Created("/", response.Token);
+        return Created("/", response);
     }
 }
