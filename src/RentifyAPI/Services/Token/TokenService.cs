@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace RentifyAPI.Services.Auth
+namespace RentifyAPI.Services.Token
 {
     public class TokenService : ITokenService
     {

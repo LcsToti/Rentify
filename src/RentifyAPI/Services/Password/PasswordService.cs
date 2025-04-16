@@ -1,4 +1,4 @@
-﻿namespace RentifyAPI.Services.Auth;
+﻿namespace RentifyAPI.Services.Password;
 
 public class PasswordService : IPasswordService
 {

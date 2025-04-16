@@ -1,11 +1,12 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using RentifyAPI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using RentifyAPI.Models;
 using RentifyAPI.Services.Auth;
 using RentifyAPI.Services.UserServices;
-using System.Text;
-using RentifyAPI;
+using RentifyAPI.Services.Token;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 
@@ -82,7 +83,7 @@ builder.Services.AddAuthentication(x =>
 
 var app = builder.Build();
 
-// Pipeline and middlewares
+// Middlewares Pipeline
 
 // 1. Errors handler
 app.UseCors("AllowLocalSwagger");
@@ -102,15 +103,15 @@ app.UseHttpsRedirection();
 // 3. wwwroot for static files
 // app.UseStaticFiles();
 
-// 4. Roteamento
+// 4. Routing
 app.UseRouting();
 
-// 5. Autenticação/autorização (se aplicável)
+// 5. Auth
 app.UseAuthentication();
 app.UseAuthorization();
 
 
-// 6. Mapeamento de endpoints (controllers, minimal APIs, etc.)
+// 6. Endpoints Mapping (controllers, minimal APIs, etc.)
 app.MapControllers();
 
 app.Run();

@@ -2,6 +2,8 @@
 using RentifyAPI.Dtos.Auth;
 using RentifyAPI.Models;
 using RentifyAPI.Repositories;
+using RentifyAPI.Services.Password;
+using RentifyAPI.Services.Token;
 
 namespace RentifyAPI.Services.Auth;
 

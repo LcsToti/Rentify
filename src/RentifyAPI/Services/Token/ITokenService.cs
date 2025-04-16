@@ -1,6 +1,6 @@
 ﻿using RentifyAPI.Models;
 
-namespace RentifyAPI.Services.Auth;
+namespace RentifyAPI.Services.Token;
 
 public interface ITokenService
 {
