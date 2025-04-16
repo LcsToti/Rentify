@@ -10,7 +10,7 @@ namespace RentifyAPI.Services.Auth
     {
         public string Generate(User user)
         {
-            var handler = new JwtSecurityTokenHandler();
+            var tokenHandler = new JwtSecurityTokenHandler();
 
             var key = Encoding.ASCII.GetBytes(Configuration.PrivateKey);
             var credentials = new SigningCredentials(
@@ -25,9 +25,9 @@ namespace RentifyAPI.Services.Auth
                 Expires = DateTime.UtcNow.AddDays(1)
             };
 
-            var token = handler.CreateToken(tokenDescriptor);
+            var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return handler.WriteToken(token);
+            return tokenHandler.WriteToken(token);
         }
 
         private static ClaimsIdentity GenerateClaims(User user)

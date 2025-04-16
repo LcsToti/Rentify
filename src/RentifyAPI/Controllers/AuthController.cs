@@ -35,13 +35,12 @@ public class AuthController(IAuthService authService) : ControllerBase
                 return Unauthorized(response.ErrorMessage);
             }
             return StatusCode(500, "Erro inesperado.");
-
         }
-
         return Ok(response.Token);
     }
 
     [ProducesResponseType(typeof(AuthResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status409Conflict)]
     [Route("Register")]
     [HttpPost]

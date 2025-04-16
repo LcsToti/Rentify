@@ -4,46 +4,45 @@ using RentifyAPI.Dtos.Auth;
 using RentifyAPI.Dtos.UserDtos;
 using RentifyAPI.Services.UserServices;
 
-namespace RentifyAPI.Controllers
+namespace RentifyAPI.Controllers;
+
+[Route("[controller]")]
+[ApiController]
+public class UsersController(IUserService userService) : ControllerBase
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class UsersController(IUserService userService) : ControllerBase
+    private readonly IUserService _userService = userService;
+
+    [ProducesResponseType(typeof(List<GetUserDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [HttpGet]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetUsers()
     {
-        private readonly IUserService _userService = userService;
+        var users = await _userService.GetUsersAsync();
+        return Ok(users);
+    }
 
-        [ProducesResponseType(typeof(List<GetUserDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetUsers()
+    [ProducesResponseType(typeof(GetUserDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(AuthResponse), StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    [HttpGet("{id}")]
+    [Authorize]
+    public async Task<IActionResult> GetUser(int id)
+    {
+        var user = await _userService.GetUserAsync(id);
+
+        if (user is null)
         {
-            var users = await _userService.GetUsersAsync();
-            return Ok(users);
+            return NotFound("Usuário não encontrado");
         }
 
-        [ProducesResponseType(typeof(GetUserDto), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(AuthResponse), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-        [HttpGet("{id}")]
-        [Authorize]
-        public async Task<IActionResult> GetUser(int id)
+
+        if (User.Identity.Name != user.Email && !User.IsInRole("Admin"))
         {
-            var user = await _userService.GetUserAsync(id);
-
-            if (user is null)
-            {
-                return NotFound("Usuário não encontrado");
-            }
-
-
-            if (User.Identity.Name != user.Email && !User.IsInRole("Admin"))
-            {
-                return Forbid("Você não possui permissões para acessar este recurso.");
-            }
-
-            return Ok(user);
+            return Forbid("Você não possui permissões para acessar este recurso.");
         }
+
+        return Ok(user);
     }
 }
