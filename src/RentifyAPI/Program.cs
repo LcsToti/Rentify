@@ -82,9 +82,9 @@ builder.Services.AddAuthentication(x =>
 
 var app = builder.Build();
 
-// Pipeline e middlewares
+// Pipeline and middlewares
 
-// 1. Tratamento de erros
+// 1. Errors handler
 app.UseCors("AllowLocalSwagger");
 if (app.Environment.IsDevelopment())
 {
@@ -96,11 +96,11 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// 2. Redirecionamento HTTPS
+// 2. HTTPS Redirection
 app.UseHttpsRedirection();
 
-// 3. Middleware de arquivos estáticos (se usados)
-app.UseStaticFiles();
+// 3. wwwroot for static files
+// app.UseStaticFiles();
 
 // 4. Roteamento
 app.UseRouting();
