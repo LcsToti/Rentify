@@ -33,10 +33,12 @@ namespace RentifyAPI.Services.Auth
         private static ClaimsIdentity GenerateClaims(User user)
         {
             var ci = new ClaimsIdentity();
+
             ci.AddClaim(new Claim(ClaimTypes.Name, user.Email));
-            foreach (var role in user.Roles)
+
+            foreach (var Role in user.Roles)
             {
-                ci.AddClaim(new Claim(ClaimTypes.Role, role));
+                ci.AddClaim(new Claim(ClaimTypes.Role, Role));
             }
             return ci;
         }

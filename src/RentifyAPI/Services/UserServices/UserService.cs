@@ -1,8 +1,7 @@
 ﻿using RentifyAPI.Models;
 using RentifyAPI.Dtos.UserDtos;
-using RentifyAPI.Utils.Mappers;
 using Microsoft.EntityFrameworkCore;
-using RentifyAPI.Services.Auth;
+using RentifyAPI.Utils;
 
 namespace RentifyAPI.Services.UserServices;
 
@@ -17,7 +16,7 @@ public class UserService : IUserService
     public async Task<List<GetUserDto>> GetUsersAsync()
     {
         var users = await _context.Users
-            .Select(u => new GetUserDto { Id = u.Id, Name = u.Name })
+            .Select(u => new GetUserDto { Id = u.Id, Name = u.Name, Email = u.Email })
             .ToListAsync();
         return users;
     }
@@ -25,31 +24,10 @@ public class UserService : IUserService
     public async Task<GetUserDto?> GetUserAsync(int id)
     {
         var user = await _context.Users.FindAsync(id);
-        return user != null ? UserMapper.ToDTO(user) : null;
-    }
-
-
-    public async Task<GetUserDto> CreateUserAsync(RegisterUserDto dto)
-    {
-        if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
+        if (user == null)
         {
-            throw new InvalidOperationException("E-mail já cadastrado.");
+            throw new DirectoryNotFoundException("Usuário não encontrado");
         }
-
-        var user = new User
-        {
-            Name = dto.Name,
-            Email = dto.Email,
-            PasswordHash = PasswordService.Hash(dto.Password),
-        };
-
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync();
-
-        return new GetUserDto
-        {
-            Id = user.Id,
-            Name = user.Name,
-        };
+        return UserMapper.ToDTO(user);
     }
 }

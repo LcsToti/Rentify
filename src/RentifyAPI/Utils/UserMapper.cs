@@ -1,7 +1,7 @@
 ﻿using RentifyAPI.Dtos.UserDtos;
 using RentifyAPI.Models;
 
-namespace RentifyAPI.Utils.Mappers;
+namespace RentifyAPI.Utils;
 
 public class UserMapper
 {
@@ -11,6 +11,7 @@ public class UserMapper
         {
             Id = user.Id,
             Name = user.Name,
+            Email = user.Email,
         };
     }
 } 

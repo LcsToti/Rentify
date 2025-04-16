@@ -4,7 +4,7 @@ namespace RentifyAPI.Services.Auth;
 
 public interface IAuthService 
 {
-    // Task<AuthResponse> LoginAsync(LoginDto loginDto);
+    Task<AuthResponse> LoginAsync(LoginDto loginDto);
     Task<AuthResponse> RegisterAsync(RegisterDto registerDto);
 }
 
