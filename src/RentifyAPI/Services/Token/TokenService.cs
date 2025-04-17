@@ -34,7 +34,7 @@ namespace RentifyAPI.Services.Token
         {
             var ci = new ClaimsIdentity();
 
-            ci.AddClaim(new Claim(ClaimTypes.Name, user.Email));
+            ci.AddClaim(new Claim(ClaimTypes.Name, user.Id.ToString()));
 
             foreach (var Role in user.Roles)
             {

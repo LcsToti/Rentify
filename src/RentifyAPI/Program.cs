@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -73,7 +74,7 @@ builder.Services.AddAuthentication(x =>
     x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(x =>
 {
-    x.RequireHttpsMetadata = false;
+    x.RequireHttpsMetadata = !builder.Environment.IsDevelopment();
     x.SaveToken = true;
     x.TokenValidationParameters = new TokenValidationParameters
     {
@@ -83,6 +84,21 @@ builder.Services.AddAuthentication(x =>
         ValidateAudience = false,
         RoleClaimType = ClaimTypes.Role
     };
+});
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddFixedWindowLimiter("default", opt =>
+    {
+        opt.Window = TimeSpan.FromMinutes(1);
+        opt.PermitLimit = 100;
+    });
+
+    options.AddFixedWindowLimiter("strict", opt =>
+    {
+        opt.Window = TimeSpan.FromMinutes(1);
+        opt.PermitLimit = 10;
+    });
 });
 
 var app = builder.Build();
@@ -114,8 +130,10 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+// 6. RateLimiter
+app.UseRateLimiter();
 
-// 6. Endpoints Mapping (controllers, minimal APIs, etc.)
+// 7. Endpoints Mapping (controllers, minimal APIs, etc.)
 app.MapControllers();
 
 app.Run();
