@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RentifyAPI.Dtos.Auth;
+using RentifyAPI.Dtos.Request;
 using RentifyAPI.Services.Auth;
 
 namespace RentifyAPI.Controllers;
@@ -15,7 +15,7 @@ public class AuthController(IAuthService authService) : ControllerBase
     [ProducesResponseType(typeof(AuthResponse), StatusCodes.Status401Unauthorized)]
     [Route("Login")]
     [HttpPost]
-    public async Task<IActionResult> Login([FromBody] LoginDto dto)
+    public async Task<IActionResult> Login([FromBody] LoginRequest dto)
     {
         if (!ModelState.IsValid)
         {
@@ -44,7 +44,7 @@ public class AuthController(IAuthService authService) : ControllerBase
     [ProducesResponseType(typeof(AuthResponse), StatusCodes.Status409Conflict)]
     [Route("Register")]
     [HttpPost]
-    public async Task<IActionResult> Register([FromBody] RegisterDto dto)
+    public async Task<IActionResult> Register([FromBody] RegisterRequest dto)
     {
         if (!ModelState.IsValid)
         {

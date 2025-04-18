@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RentifyAPI.Dtos.Auth;
-public class RegisterDto
+namespace RentifyAPI.Dtos.Request;
+public class RegisterRequest
 {
     [Required(ErrorMessage = "Nome é obrigatório")]
     [MinLength(5, ErrorMessage = "Nome deve ter pelo menos 5 dígitos")]

@@ -38,6 +38,10 @@ builder.Services.AddCors(options =>
         policy.WithOrigins("http://localhost:8081")
               .AllowAnyMethod()
               .AllowAnyHeader());
+    options.AddPolicy("AllowProductionClients", policy =>
+        policy.WithOrigins("https://meusite.com", "https://appcliente.com")
+              .AllowAnyMethod()
+              .AllowAnyHeader());
 });
 
 builder.Services.AddSwaggerGen(c =>
@@ -106,15 +110,19 @@ var app = builder.Build();
 // Middlewares Pipeline
 
 // 1. Errors handler
-app.UseCors("AllowLocalSwagger");
 if (app.Environment.IsDevelopment())
 {
+    app.UseCors("AllowLocalSwagger");
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "RentifyAPI v1");
     });
+}
+else if (app.Environment.IsProduction())
+{
+    app.UseCors("AllowProductionClients");
 }
 
 // 2. HTTPS Redirection

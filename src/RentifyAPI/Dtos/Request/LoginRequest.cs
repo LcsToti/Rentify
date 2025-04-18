@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RentifyAPI.Dtos.Auth;
+namespace RentifyAPI.Dtos.Request;
 
-public class LoginDto
+public class LoginRequest
 {
     [Required(ErrorMessage = "E-mail é obrigatório")]
     [EmailAddress(ErrorMessage = "E-mail inválido")]

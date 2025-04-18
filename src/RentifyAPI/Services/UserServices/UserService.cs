@@ -1,4 +1,4 @@
-﻿using RentifyAPI.Dtos.ResponseDtos;
+﻿using RentifyAPI.Dtos.Response;
 using RentifyAPI.Repositories;
 
 namespace RentifyAPI.Services.UserServices;

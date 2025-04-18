@@ -1,6 +1,6 @@
 ﻿using RentifyAPI.Dtos.ResponseDtos;
 
-namespace RentifyAPI.Dtos.ResponseDtos
+namespace RentifyAPI.Dtos.Response
 {
     public class AuthResponse
     {

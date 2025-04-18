@@ -1,4 +1,4 @@
-﻿using RentifyAPI.Dtos.Auth;
+﻿using RentifyAPI.Dtos.Request;
 using RentifyAPI.Models;
 using RentifyAPI.Repositories;
 using RentifyAPI.Services.Password;
@@ -12,7 +12,7 @@ public class AuthService(IUserRepository userRepository, IPasswordService passwo
     private readonly IPasswordService _passwordService = passwordService;
     private readonly ITokenService _tokenService = tokenService;
 
-    public async Task<AuthResponse> LoginAsync(LoginDto loginDto)
+    public async Task<AuthResponse> LoginAsync(LoginRequest loginDto)
     {
         if (!await _userRepository.EmailExistsAsync(loginDto.Email))
         {
@@ -29,7 +29,7 @@ public class AuthService(IUserRepository userRepository, IPasswordService passwo
         return new AuthResponse { Success = true, Token = _tokenService.Generate(user) };
     }
 
-    public async Task<AuthResponse> RegisterAsync(RegisterDto dto)
+    public async Task<AuthResponse> RegisterAsync(RegisterRequest dto)
     {
         if (await _userRepository.EmailExistsAsync(dto.Email))
         {

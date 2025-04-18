@@ -1,6 +1,7 @@
-﻿using RentifyAPI.Models;
+﻿using RentifyAPI.Dtos.ResponseDtos;
+using RentifyAPI.Models;
 
-namespace RentifyAPI.Dtos.ResponseDtos;
+namespace RentifyAPI.Dtos.Response;
 
 public class SingleUserResponse : BaseResponse
 {

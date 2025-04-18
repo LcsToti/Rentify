@@ -1,4 +1,4 @@
-﻿using RentifyAPI.Dtos.ResponseDtos;
+﻿using RentifyAPI.Dtos.Response;
 
 namespace RentifyAPI.Services.UserServices;
 public interface IUserService

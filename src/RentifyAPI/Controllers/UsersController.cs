@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RentifyAPI.Dtos.ResponseDtos;
+using RentifyAPI.Dtos.Response;
 using RentifyAPI.Services.UserServices;
 
 namespace RentifyAPI.Controllers;
