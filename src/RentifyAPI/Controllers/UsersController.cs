@@ -13,6 +13,7 @@ public class UsersController(IUserService userService) : ControllerBase
 
     [ProducesResponseType(typeof(UserListResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status403Forbidden)]
     [HttpGet]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Users()
