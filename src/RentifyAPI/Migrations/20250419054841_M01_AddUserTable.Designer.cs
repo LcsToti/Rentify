@@ -12,8 +12,8 @@ using RentifyAPI.Models;
 namespace RentifyAPI.Migrations
 {
     [DbContext(typeof(RentifyContext))]
-    [Migration("20250415074213_M01-AddUser")]
-    partial class M01AddUser
+    [Migration("20250419054841_M01_AddUserTable")]
+    partial class M01_AddUserTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

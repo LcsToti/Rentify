@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RentifyAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class M01AddUser : Migration
+    public partial class M01_AddUserTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
